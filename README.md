@@ -27,7 +27,7 @@ Sigue estos pasos para instalar y ejecutar la aplicación en tu entorno local:
 
 3. Ejecuta la aplicación:
    ```bash
-   python main.py
+   flet run app/main.py
    ```
 
 ## Uso
