@@ -2,6 +2,8 @@ import flet as ft
 
 from components import create_navigation_bar
 from pages import calendar_page, tasks_page, settings_page
+
+# from pages.calendar_page import CalendarPage
 from utils import app_theme
 
 
@@ -12,6 +14,7 @@ def main(page: ft.Page):
     print("Ruta inicial: ", page.route)
 
     def on_navigation_change(index):
+
         page.views.clear()
 
         page.views.append(
