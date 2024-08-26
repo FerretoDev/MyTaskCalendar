@@ -31,7 +31,7 @@ def main(page: ft.Page):
                     adaptive=True,
                     title=ft.Text(titles[index]),
                     # bgcolor=ft.colors.RED,
-                    actions=[ft.IconButton(ft.icons.SETTINGS, on_click=routes[index])],
+                    actions=[ft.IconButton(ft.icons.SETTINGS, on_click=routes[0])],
                 ),
                 floating_action_button=ft.FloatingActionButton(
                     content=ft.Icon(ft.icons.ADD), bgcolor=ft.colors.ORANGE
