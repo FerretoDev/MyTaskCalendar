@@ -60,7 +60,7 @@ Este proyecto está licenciado bajo la [MIT License](LICENSE).
 
 ## Contacto
 
-Para cualquier pregunta o sugerencia, puedes contactarme a través de [marcosferretoestrada@gmail.com](mailto:marcosferretoestrada@gmail.com).
+Para cualquier pregunta o sugerencia, puedes contactarme a través de [@gmail.com](mailto:@gmail.com).
 
 ---
 
