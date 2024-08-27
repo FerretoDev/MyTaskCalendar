@@ -46,7 +46,7 @@ Sigue estos pasos para instalar y ejecutar la aplicación en tu entorno local:
 
 ## Contribución
 
-Si deseas contribuir al desarrollo de TaskCal, por favor sigue estos pasos:
+Si deseas contribuir al desarrollo de MyTaskCalendar, por favor sigue estos pasos:
 
 1. Haz un fork del repositorio.
 2. Crea una nueva rama (`git checkout -b feature/nueva-funcionalidad`).
