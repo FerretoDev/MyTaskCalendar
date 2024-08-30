@@ -19,13 +19,23 @@ Sigue estos pasos para instalar y ejecutar la aplicación en tu entorno local:
    git clone https://github.com/FerretoDev/MyTaskCalendar.git
    cd MyTaskCalendar
    ```
+   
+2. Crea un entorno virtual:
+   ```bash
+   python3 -m venv .venv
+   ```
 
-2. Instala las dependencias:
+3. Activa el entorno virtual:
+   ```bash
+   source .venv/bin/activate
+   ```
+   
+4. Instala las dependencias:
    ```bash
    pip install -r requirements.txt
    ```
 
-3. Ejecuta la aplicación:
+5. Ejecuta la aplicación:
    ```bash
    flet run app/main.py
    ```
