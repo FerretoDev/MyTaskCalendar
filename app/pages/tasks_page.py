@@ -46,7 +46,8 @@ class Task(ft.Column):
                 ft.IconButton(
                     icon=ft.icons.DONE_OUTLINE_OUTLINED,
                     icon_color=ft.colors.GREEN,
-                    tooltip="Update To-Do",
+                    # tooltip="Update To-Do",
+                    tooltip="Actualizar To-Do",
                     on_click=self.save_clicked,
                 ),
             ],
@@ -77,7 +78,10 @@ class TodoApp(ft.Column):
     def __init__(self):
         super().__init__()
         self.new_task = ft.TextField(
-            hint_text="What needs to be done?", on_submit=self.add_clicked, expand=True
+            hint_text="¿Qué necesita hacer?",
+            on_submit=self.add_clicked,
+            expand=True,
+            # hint_text="¿Qué necesita hacer?", on_submit=self.add_clicked, expand=True
         )
         self.tasks = ft.Column()
 
@@ -86,14 +90,19 @@ class TodoApp(ft.Column):
             selected_index=0,
             on_change=self.tabs_changed,
             tabs=[
-                ft.Tab(text="All"),
-                ft.Tab(text="Today"),
-                ft.Tab(text="Tomorrow"),
-                ft.Tab(text="This Week"),
+                ft.Tab(text="Todo"),
+                ft.Tab(text="Hoy"),
+                ft.Tab(text="Mañana"),
+                ft.Tab(text="Esta semana"),
+                # ft.Tab(text="All"),
+                # ft.Tab(text="Today"),
+                # ft.Tab(text="Tomorrow"),
+                # ft.Tab(text="This Week"),
             ],
         )
 
-        self.items_left = ft.Text("0 items left")
+        self.items_left = ft.Text("0 elementos restantes")
+        # self.items_left = ft.Text("0 items left")
 
         # self.width = 600
         self.controls = [
@@ -119,7 +128,9 @@ class TodoApp(ft.Column):
                         controls=[
                             self.items_left,
                             ft.OutlinedButton(
-                                text="Clear completed", on_click=self.clear_clicked
+                                # text="Clear completed", on_click=self.clear_clicked
+                                text="Eliminar completados",
+                                on_click=self.clear_clicked,
                             ),
                         ],
                     ),
@@ -160,18 +171,27 @@ class TodoApp(ft.Column):
 
             # Filtrado de tareas según la pestaña seleccionada
             task.visible = (
-                status == "All"
-                or (status == "Today" and task_date == today)
-                or (status == "Tomorrow" and task_date == tomorrow)
+                status == "Todo"
+                or (status == "Hoy" and task_date == today)
+                or (status == "Mañana" and task_date == tomorrow)
                 or (
-                    status == "This Week"
+                    status == "Esta semana"
                     and task_date >= today
                     and task_date < today + timedelta(days=7)
                 )
+                # status == "All"
+                # or (status == "Today" and task_date == today)
+                # or (status == "Tomorrow" and task_date == tomorrow)
+                # or (
+                #    status == "This Week"
+                #    and task_date >= today
+                #    and task_date < today + timedelta(days=7)
+                # )
             )
             if not task.completed:
                 count += 1
-        self.items_left.value = f"{count} active item(s) left"
+        self.items_left.value = f"{count} elementos activos restantes"
+        # self.items_left.value = f"{count} active item(s) left"
 
 
 def tasks_page():
