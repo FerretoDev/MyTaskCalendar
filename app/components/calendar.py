@@ -21,14 +21,23 @@ class Calendar(ft.Row):
 
     def build(self):
         # Botón para abrir el DatePicker
-        return ft.Column(
+        return ft.ResponsiveRow(  # Usar ResponsiveRow para que se ajuste al tamaño de la pantalla
             controls=[
-                ft.ElevatedButton(
-                    "Pick date",
-                    icon=ft.icons.CALENDAR_MONTH,
-                    on_click=self.open_date_picker,
+                ft.Column(
+                    controls=[
+                        ft.ElevatedButton(
+                            "Pick date",
+                            icon=ft.icons.CALENDAR_MONTH,
+                            on_click=self.open_date_picker,
+                        ),
+                        self.selected_date,  # Muestra la fecha seleccionada
+                    ],
+                    col={
+                        "xs": 12,
+                        "md": 6,
+                    },  # Ajuste en columnas para diferentes tamaños de pantalla
+                    alignment=ft.MainAxisAlignment.CENTER,
                 ),
-                self.selected_date,  # Muestra la fecha seleccionada
             ]
         )
 
