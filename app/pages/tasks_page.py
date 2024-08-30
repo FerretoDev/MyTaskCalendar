@@ -95,7 +95,7 @@ class TodoApp(ft.Column):
 
         self.items_left = ft.Text("0 items left")
 
-        self.width = 600
+        # self.width = 600
         self.controls = [
             ft.Row(
                 alignment=ft.MainAxisAlignment.CENTER,
