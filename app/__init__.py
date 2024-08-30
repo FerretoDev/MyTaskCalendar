@@ -1,3 +1,3 @@
-from app import main
+from . import main
 
 __all__ = ["main"]

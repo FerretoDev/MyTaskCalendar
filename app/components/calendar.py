@@ -2,7 +2,7 @@ import datetime
 import flet as ft
 
 
-class CalendarPage(ft.UserControl):
+class Calendar(ft.Row):
     def __init__(self):
         super().__init__()
         self.selected_date = ft.Text("No date selected")

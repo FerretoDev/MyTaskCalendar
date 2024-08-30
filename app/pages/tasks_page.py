@@ -24,12 +24,12 @@ class Task(ft.Column):
                     controls=[
                         ft.IconButton(
                             icon=ft.icons.CREATE_OUTLINED,
-                            tooltip="Edit To-Do",
+                            tooltip="Editar To-Do",
                             on_click=self.edit_clicked,
                         ),
                         ft.IconButton(
                             ft.icons.DELETE_OUTLINE,
-                            tooltip="Delete To-Do",
+                            tooltip="Eliminar To-Do",
                             on_click=self.delete_clicked,
                         ),
                     ],
@@ -153,7 +153,7 @@ class TodoApp(ft.Column):
     def before_update(self):
         status = self.filter.tabs[self.filter.selected_index].text
         count = 0
-        today = datetime.today().date()
+        today = datetime.now()
         tomorrow = today + timedelta(days=1)
         for task in self.tasks.controls:
             task_date = today  # Aquí podrías definir la fecha de cada tarea
@@ -175,5 +175,4 @@ class TodoApp(ft.Column):
 
 
 def tasks_page():
-
     return TodoApp()
