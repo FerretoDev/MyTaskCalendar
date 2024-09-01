@@ -3,6 +3,8 @@ from components import create_navigation_bar
 from pages import calendar_page, settings_page, tasks_page
 from utils import app_theme
 
+# from utils.constants import Constants
+
 
 def main(page: ft.Page):
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
