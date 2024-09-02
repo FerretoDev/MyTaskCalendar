@@ -1,9 +1,10 @@
+from ctypes import alignment
 import datetime
 import locale
 
 import flet as ft
 from components.calendar import Calendar
-from components.create_task_item import create_task_item
+from components.task_item import task_item
 
 
 def tabs():
@@ -24,15 +25,15 @@ def date_title():
     return ft.Text(
         str(datetime.date.today().strftime("Hoy, %d de %B")),
         size=16,
-        weight=ft.FontWeight.BOLD,
+        weight=ft.FontWeight.NORMAL,
     )
 
 
 def tasks():
     return ft.Column(
         controls=[
-            create_task_item("Gym", "8:00 AM", True),
-        ]
+            task_item("Gym", "8:00 AM", True),
+        ],
     )
 
 
@@ -44,5 +45,5 @@ def calendar_page():
             tabs(),
             date_title(),
             tasks(),
-        ]
+        ],
     )
