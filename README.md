@@ -20,14 +20,20 @@ Sigue estos pasos para instalar y ejecutar la aplicación en tu entorno local:
    cd MyTaskCalendar
    ```
    
-2. Crea un entorno virtual:
+2. Configurar entorno virtual
+
+   En macOS/Linux:
    ```bash
    python3 -m venv .venv
-   ```
-
-3. Activa el entorno virtual:
-   ```bash
    source .venv/bin/activate
+
+   ```
+   
+   En Windows:
+   ```bash
+   py -3 -m venv .venv
+   .venv\\Scripts\\activate
+
    ```
    
 4. Instala las dependencias:
