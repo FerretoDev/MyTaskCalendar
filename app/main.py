@@ -11,7 +11,7 @@ def main(page: ft.Page):
     page.title = "Calendario y Tareas"
     page.theme_mode = ft.ThemeMode.LIGHT
     page.theme = app_theme
-    print("Ruta inicial: ", page.route)
+    # print("Ruta inicial: ", page.route)
 
     def on_navigation_change(index):
         page.views.clear()

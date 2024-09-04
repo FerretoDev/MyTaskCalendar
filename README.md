@@ -1,4 +1,4 @@
-# MyTaskCalendar
+## MyTaskCalendar
 
 **MyTaskCalendar** es una aplicación multiplataforma de gestión de tareas y calendario desarrollada con Flet, utilizando Python y la tecnología de Flutter. Esta aplicación te permite gestionar proyectos y tareas, agregar recordatorios y mantener un calendario organizado.
 
