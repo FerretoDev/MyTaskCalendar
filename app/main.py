@@ -52,8 +52,8 @@ def main(page: ft.Page):
         page.update()
 
     # Rutas y títulos de las páginas
-    routes = ["calendar", "tasks", "settings"]
-    titles = ["Calendario", "Tareas", "Configuración"]
+    routes: list[str] = ["calendar", "tasks", "settings"]
+    titles: list[str] = ["Calendario", "Tareas", "Configuración"]
 
     # Lista de páginas
     pages = [calendar_page(), tasks_page(), settings_page()]
