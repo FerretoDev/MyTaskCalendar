@@ -1,7 +1,7 @@
-import flet as ft
-from components import create_navigation_bar
-from pages import calendar_page, settings_page, tasks_page
-from utils import app_theme
+import flet as ft  # type: ignore
+from components.navigation import create_navigation_bar  # type: ignore
+from pages import calendar_page, settings_page, tasks_page  # type: ignore
+from utils import app_theme  # type: ignore
 
 # from utils.constants import Constants
 
@@ -56,7 +56,7 @@ def main(page: ft.Page):
     titles: list[str] = ["Calendario", "Tareas", "Configuración"]
 
     # Lista de páginas
-    pages = [calendar_page(), tasks_page(), settings_page()]
+    pages: list = [calendar_page(), tasks_page(), settings_page()]
 
     # Mostrar la primera página (Calendario)
     on_navigation_change(0)
@@ -65,4 +65,7 @@ def main(page: ft.Page):
     page.update()
 
 
+ft.app(target=main)
+ft.app(target=main)
+ft.app(target=main)
 ft.app(target=main)
