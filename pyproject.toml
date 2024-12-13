@@ -1,5 +1,5 @@
 [tool.mypy]
-files = ["src/", "tests/"]  # Rutas a analizar
+files = ["app/", "tests/"]  # Rutas a analizar
 ignore_missing_imports = true  # Ignorar errores por módulos no encontrados
 # strict = true  # Activar modo estricto
 
