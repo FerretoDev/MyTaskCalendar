@@ -1,0 +1,11 @@
+[tool.mypy]
+files = ["src/", "tests/"]  # Rutas a analizar
+ignore_missing_imports = true  # Ignorar errores por módulos no encontrados
+# strict = true  # Activar modo estricto
+
+#[tool.mypy-unchecked_code]
+#ignore_errors = true  # Ignorar todos los errores en módulos o secciones específicas
+
+# Configuración para módulos específicos
+#[tool.mypy.overrides]
+#"mi_modulo.problematico.*" = { ignore_errors = true }  # Excluir errores para un módulo o paquete específico
