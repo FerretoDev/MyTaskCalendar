@@ -8,7 +8,7 @@ from components.render_calendar_tasks import render_calendar_tasks
 def calendar_page():
     return ft.Column(
         controls=[
-            Calendar(),
+            # Calendar(),
             ft.Divider(),
             render_calendar_tabs(),
             render_today_date(),

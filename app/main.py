@@ -7,13 +7,14 @@ from utils import app_theme  # type: ignore
 
 
 def main(page: ft.Page):
+
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
     page.title = "Calendario y Tareas"
     page.theme_mode = ft.ThemeMode.LIGHT
     page.theme = app_theme
     # print("Ruta inicial: ", page.route)
 
-    def on_navigation_change(index):
+    def on_navigation_change(index: int) -> None:
         page.views.clear()
 
         # Determinar si se muestra el botón de configuración
@@ -25,6 +26,17 @@ def main(page: ft.Page):
                     on_click=lambda e: on_navigation_change(
                         2
                     ),  # Cambiar a página de Configuración
+                )
+            )
+        floating_action_button_actions = []
+        if index != 2:  # Si no es la pestaña de configuración
+            floating_action_button_actions.append(
+                ft.FloatingActionButton(
+                    icon=ft.icons.ADD,
+                    on_click=lambda e: on_navigation_change(
+                        1
+                    ),  # Cambiar a página de Configuración
+                    tooltip="Add a task",
                 )
             )
 
@@ -45,7 +57,9 @@ def main(page: ft.Page):
                     actions=appbar_actions,
                 ),
                 floating_action_button=ft.FloatingActionButton(
-                    content=ft.Icon(ft.icons.ADD), bgcolor=ft.colors.ORANGE
+                    icon=ft.icons.ADD,
+                    on_click=lambda e: on_navigation_change(1),
+                    tooltip="Add a task",
                 ),
             )
         )
@@ -65,7 +79,4 @@ def main(page: ft.Page):
     page.update()
 
 
-ft.app(target=main)
-ft.app(target=main)
-ft.app(target=main)
 ft.app(target=main)
