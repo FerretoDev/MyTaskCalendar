@@ -1,5 +1,8 @@
 import datetime
+
 import flet as ft
+
+# NO usar flet.DatePicker, y tampoco usar este componente
 
 
 class Calendar(ft.Row):
