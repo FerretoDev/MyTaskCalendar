@@ -8,9 +8,9 @@ def create_navigation_bar(current_index, on_change):
         adaptive=True,
         destinations=[
             ft.NavigationBarDestination(
-                icon=ft.icons.CALENDAR_MONTH, label="Calendario"
+                icon=ft.Icons.CALENDAR_MONTH, label="Calendario"
             ),
-            ft.NavigationBarDestination(icon=ft.icons.TASK, label="Tareas"),
-            ft.NavigationBarDestination(icon=ft.icons.SETTINGS, label="Configuración"),
+            ft.NavigationBarDestination(icon=ft.Icons.TASK, label="Tareas"),
+            ft.NavigationBarDestination(icon=ft.Icons.SETTINGS, label="Configuración"),
         ],
     )

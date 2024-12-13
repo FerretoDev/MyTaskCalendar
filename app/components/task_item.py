@@ -6,5 +6,5 @@ def task_item(title, time, is_completed):
         leading=ft.Checkbox(value=is_completed),
         title=ft.Text(title),
         subtitle=ft.Text(time),
-        trailing=ft.IconButton(icon=ft.icons.NOTIFICATIONS),
+        trailing=ft.IconButton(icon=ft.Icons.NOTIFICATIONS),
     )

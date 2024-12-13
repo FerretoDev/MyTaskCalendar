@@ -22,7 +22,7 @@ def main(page: ft.Page):
         if index != 2:  # Si no es la pestaña de configuración
             appbar_actions.append(
                 ft.IconButton(
-                    ft.icons.SETTINGS,
+                    ft.Icons.SETTINGS,
                     on_click=lambda e: on_navigation_change(
                         2
                     ),  # Cambiar a página de Configuración
@@ -32,7 +32,7 @@ def main(page: ft.Page):
         if index != 2:  # Si no es la pestaña de configuración
             floating_action_button_actions.append(
                 ft.FloatingActionButton(
-                    icon=ft.icons.ADD,
+                    icon=ft.Icons.ADD,
                     on_click=lambda e: on_navigation_change(
                         1
                     ),  # Cambiar a página de Configuración
@@ -57,7 +57,7 @@ def main(page: ft.Page):
                     actions=appbar_actions,
                 ),
                 floating_action_button=ft.FloatingActionButton(
-                    icon=ft.icons.ADD,
+                    icon=ft.Icons.ADD,
                     on_click=lambda e: on_navigation_change(1),
                     tooltip="Add a task",
                 ),

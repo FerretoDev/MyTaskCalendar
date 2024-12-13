@@ -16,7 +16,7 @@ class SettingsPage(ft.Column):
         # Tema (Light/Dark)
         theme_row = ft.Row(
             controls=[
-                ft.Icon(ft.icons.WB_SUNNY_OUTLINED),  # Icono de sol para el tema
+                ft.Icon(ft.Icons.WB_SUNNY_OUTLINED),  # Icono de sol para el tema
                 ft.Text("Theme"),
                 self.theme_text,  # Texto que indica el estado del tema
                 self.theme_switch,  # Switch para cambiar el tema
@@ -36,19 +36,19 @@ class SettingsPage(ft.Column):
         # Opción de notificaciones
         notifications_row = ft.ListTile(
             title=ft.Text("Notifications"),
-            trailing=ft.Icon(ft.icons.ARROW_FORWARD_IOS),
+            trailing=ft.Icon(ft.Icons.ARROW_FORWARD_IOS),
         )
 
         # Opción de soporte
         support_row = ft.ListTile(
             title=ft.Text("Support"),
-            trailing=ft.Icon(ft.icons.ARROW_FORWARD_IOS),
+            trailing=ft.Icon(ft.Icons.ARROW_FORWARD_IOS),
         )
 
         # Opción de política de privacidad
         privacy_policy_row = ft.ListTile(
             title=ft.Text("Privacy Policy"),
-            trailing=ft.Icon(ft.icons.ARROW_FORWARD_IOS),
+            trailing=ft.Icon(ft.Icons.ARROW_FORWARD_IOS),
         )
 
         return ft.Column(
