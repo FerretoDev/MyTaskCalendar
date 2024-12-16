@@ -7,7 +7,6 @@ from utils import app_theme  # type: ignore
 
 
 def main(page: ft.Page):
-
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
     page.title = "Calendario y Tareas"
     page.theme_mode = ft.ThemeMode.LIGHT
@@ -23,7 +22,7 @@ def main(page: ft.Page):
             appbar_actions.append(
                 ft.IconButton(
                     ft.Icons.SETTINGS,
-                    on_click=lambda e: on_navigation_change(
+                    on_click=lambda _: on_navigation_change(
                         2
                     ),  # Cambiar a página de Configuración
                 )
@@ -33,7 +32,7 @@ def main(page: ft.Page):
             floating_action_button_actions.append(
                 ft.FloatingActionButton(
                     icon=ft.Icons.ADD,
-                    on_click=lambda e: on_navigation_change(
+                    on_click=lambda _: on_navigation_change(
                         1
                     ),  # Cambiar a página de Configuración
                     tooltip="Add a task",
@@ -58,7 +57,7 @@ def main(page: ft.Page):
                 ),
                 floating_action_button=ft.FloatingActionButton(
                     icon=ft.Icons.ADD,
-                    on_click=lambda e: on_navigation_change(1),
+                    on_click=lambda _: on_navigation_change(1),
                     tooltip="Add a task",
                 ),
             )
