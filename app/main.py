@@ -1,7 +1,7 @@
-import flet as ft  # type: ignore
-from components.navigation import create_navigation_bar  # type: ignore
-from pages import calendar_page, settings_page, tasks_page  # type: ignore
-from utils import app_theme  # type: ignore
+import flet as ft
+from components.navigation import AppNavigation, create_navigation_bar
+from pages import calendar_page, settings_page, tasks_page
+from utils import app_theme
 
 # from utils.constants import Constants
 
