@@ -5,8 +5,8 @@ class SettingsPage(ft.Column):
     def __init__(self):
         super().__init__()
 
-        # Estado inicial del tema (True para Light, False para Dark)
-        self.is_light_theme = True
+        # Estado inicial del tema
+        self.is_light_theme = True  # True para Light, False para Dark
         self.theme_switch = ft.Switch(
             value=self.is_light_theme, on_change=self.toggle_theme
         )
@@ -78,4 +78,5 @@ class SettingsPage(ft.Column):
 
 
 def settings_page():
+
     return SettingsPage()
