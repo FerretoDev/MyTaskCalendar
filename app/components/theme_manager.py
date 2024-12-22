@@ -60,11 +60,11 @@ class ThemeManager:
             color_scheme_seed="blue",
             visual_density=ft.VisualDensity.COMFORTABLE,
             use_material3=True,
-            color_scheme=ft.ColorScheme(
-                primary=ft.colors.BLUE,
-                on_primary=ft.colors.WHITE,
-                primary_container=ft.colors.BLUE_900,
-                surface_tint=ft.colors.BLUE_700,
+            color_scheme=ft.Colorscheme(
+                primary=ft.Colors.BLUE,
+                on_primary=ft.Colors.WHITE,
+                primary_container=ft.Colors.BLUE_900,
+                surface_tint=ft.Colors.BLUE_700,
             ),
         )
 
