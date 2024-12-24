@@ -29,7 +29,7 @@ class SettingsPage(ft.Column):
                 self._create_theme_setting(),
                 SettingItem(
                     title="Color de acento",
-                    icon=ft.icons.COLOR_LENS,
+                    icon=ft.Icons.COLOR_LENS,
                     description="Personaliza el color principal de la aplicación",
                     on_click=self._show_color_picker,
                 ),
@@ -37,13 +37,13 @@ class SettingsPage(ft.Column):
             "Sincronización": [
                 SettingItem(
                     title="Sincronizar con calendario",
-                    icon=ft.icons.SYNC,
+                    icon=ft.Icons.SYNC,
                     description="Conectar con calendario del sistema",
                     trailing=ft.Switch(value=True, on_change=self._handle_sync_change),
                 ),
                 SettingItem(
                     title="Backup automático",
-                    icon=ft.icons.BACKUP,
+                    icon=ft.Icons.BACKUP,
                     description="Guardar copia de seguridad diaria",
                     trailing=ft.Switch(value=True),
                 ),
@@ -51,14 +51,14 @@ class SettingsPage(ft.Column):
             "Notificaciones": [
                 SettingItem(
                     title="Notificaciones",
-                    icon=ft.icons.NOTIFICATIONS,
+                    icon=ft.Icons.NOTIFICATIONS,
                     description="Gestionar notificaciones",
-                    trailing=ft.Icon(ft.icons.ARROW_FORWARD_IOS),
+                    trailing=ft.Icon(ft.Icons.ARROW_FORWARD_IOS),
                     on_click=self._show_notifications_dialog,
                 ),
                 SettingItem(
                     title="Sonidos",
-                    icon=ft.icons.VOLUME_UP,
+                    icon=ft.Icons.VOLUME_UP,
                     description="Sonidos de notificación",
                     trailing=ft.Switch(value=True),
                 ),
@@ -66,21 +66,21 @@ class SettingsPage(ft.Column):
             "Información": [
                 SettingItem(
                     title="Soporte",
-                    icon=ft.icons.HELP_OUTLINE,
+                    icon=ft.Icons.HELP_OUTLINE,
                     description="Obtener ayuda",
-                    trailing=ft.Icon(ft.icons.ARROW_FORWARD_IOS),
+                    trailing=ft.Icon(ft.Icons.ARROW_FORWARD_IOS),
                     on_click=self._show_support_dialog,
                 ),
                 SettingItem(
                     title="Política de privacidad",
-                    icon=ft.icons.PRIVACY_TIP,
+                    icon=ft.Icons.PRIVACY_TIP,
                     description="Ver política de privacidad",
-                    trailing=ft.Icon(ft.icons.ARROW_FORWARD_IOS),
+                    trailing=ft.Icon(ft.Icons.ARROW_FORWARD_IOS),
                     on_click=self._show_privacy_policy,
                 ),
                 SettingItem(
                     title="Versión",
-                    icon=ft.icons.INFO_OUTLINE,
+                    icon=ft.Icons.INFO_OUTLINE,
                     description="1.0.0",
                 ),
             ],
@@ -104,7 +104,7 @@ class SettingsPage(ft.Column):
 
         return SettingItem(
             title="Tema",
-            icon=ft.icons.DARK_MODE,
+            icon=ft.Icons.DARK_MODE,
             # description="Cambiar apariencia de la aplicación",
             trailing=theme_switch,
         )
