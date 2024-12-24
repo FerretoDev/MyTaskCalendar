@@ -15,7 +15,8 @@ def main(page: ft.Page) -> None:
     ) -> None:
         page.views.clear()
 
-        appbar_actions: List[ft.Control] = [theme_manager.create_theme_toggle()]
+        appbar_actions: List[ft.Control] = []
+        # appbar_actions: List[ft.Control] = [theme_manager.create_theme_toggle()]
         if index != 2:  # Si no es la pestaña de configuración
             appbar_actions.append(
                 ft.IconButton(
@@ -59,7 +60,7 @@ def main(page: ft.Page) -> None:
     page.title = "Calendario y Tareas"
 
     # Inicializar el tema
-    theme_manager.set_theme(ThemeMode.LIGHT)
+    page.theme_mode = theme_manager.set_theme(ThemeMode.LIGHT)
 
     # Rutas y títulos de las páginas
     routes: List[str] = ["calendar", "tasks", "settings"]

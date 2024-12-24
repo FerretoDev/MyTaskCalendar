@@ -32,7 +32,7 @@ class ThemeManager:
         """
         self.current_theme = theme_mode
         self.page.theme_mode = (
-            ft.ThemeMode.DARK if theme_mode == ThemeMode.DARK else ft.ThemeMode.LIGHT
+            ft.ThemeMode.DARK if theme_mode == ft.ThemeMode.DARK else ft.ThemeMode.LIGHT
         )
 
         # Aplicar colores y estilos específicos según el tema
