@@ -238,24 +238,38 @@ class SettingsPage(ft.Column):
             else ThemeMode.LIGHT.value
         )
 
-        theme_radio = ft.RadioGroup(
+        dialog = ft.AlertDialog(
+            modal=True,
+            title=ft.Text("Seleccionar tema", size=20, weight=ft.FontWeight.BOLD),
             content=ft.Column(
                 controls=[
-                    ft.Radio(value=ThemeMode.LIGHT.value, label="Tema Claro"),
-                    ft.Radio(value=ThemeMode.DARK.value, label="Tema Oscuro"),
-                    ft.Radio(value=ThemeMode.SYSTEM.value, label="Tema del Sistema"),
+                    ft.RadioGroup(
+                        content=ft.Column(
+                            controls=[
+                                ft.Radio(
+                                    value=ThemeMode.LIGHT.value, label="Tema Claro"
+                                ),
+                                ft.Radio(
+                                    value=ThemeMode.DARK.value, label="Tema Oscuro"
+                                ),
+                                ft.Radio(
+                                    value=ThemeMode.SYSTEM.value,
+                                    label="Tema del Sistema",
+                                ),
+                            ],
+                            spacing=5,  # Espacio entre radios
+                        ),
+                        value=current_theme,
+                        on_change=handle_theme_selection,
+                    ),
                 ],
+                tight=True,
+                horizontal_alignment=ft.CrossAxisAlignment.CENTER,  # Centra el contenido horizontalmente
             ),
-            value=current_theme,
-            on_change=handle_theme_selection,
-        )
-
-        dialog = ft.AlertDialog(
-            title=ft.Text("Seleccionar tema"),
-            content=theme_radio,
             actions=[
                 ft.TextButton("Cancelar", on_click=close_dialog),
             ],
+            actions_alignment=ft.MainAxisAlignment.END,
         )
 
         self.page.dialog = dialog
