@@ -17,13 +17,29 @@ class SettingItem:
 
 
 class SettingsPage(ft.Column):
+    """
+    Página de configuraciones que hereda de ft.Column.
+    Permite gestionar las configuraciones de la aplicación incluyendo temas y sincronización.
+    """
+
     def __init__(self, theme_manager: Optional[ThemeManager] = None):
+        """
+        Inicializa la página de configuraciones.
+
+        Args:
+            theme_manager (Optional[ThemeManager]): Gestor de temas para la aplicación.
+                                                  Si es None, se usará el tema por defecto.
+        """
         super().__init__()
         self.theme_manager = theme_manager
         self._initialize_settings()
 
     def _initialize_settings(self) -> None:
-        """Inicializa las configuraciones disponibles"""
+        """
+        Inicializa las secciones de configuración disponibles.
+        Configura las opciones de apariencia y sincronización con sus respectivos
+        controles y manejadores de eventos.
+        """
         self.settings_sections = {
             "Apariencia": [
                 self._create_theme_setting(),
