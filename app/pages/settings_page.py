@@ -159,7 +159,7 @@ class SettingsPage(ft.Column):
                         theme_text,
                         ft.Icon(ft.icons.ARROW_DROP_DOWN, color=ft.colors.PRIMARY),
                     ],
-                    # spacing=5,
+                    spacing=5,
                     width=70,  # Ancho fijo
                     alignment=ft.MainAxisAlignment.START,
                 ),
@@ -227,71 +227,30 @@ class SettingsPage(ft.Column):
             on_click=item.on_click,
         )
 
+    def _handle_placeholder_change(self, e) -> None:
+        """Maneja cambios de configuraciones aún no implementadas"""
+        print("Cambio no implementado")
+
     def _handle_theme_change(self, e) -> None:
         """Maneja el cambio de tema"""
         if self.theme_manager:
             self.theme_manager.set_theme(ThemeMode(e.control.value))
 
+    def _show_placeholder_message(self, e) -> None:
+        """Muestra un mensaje de función no implementada"""
+        dialog = ft.AlertDialog(
+            title=ft.Text("Función no implementada"),
+            content=ft.Text("Esta funcionalidad estará disponible próximamente."),
+            actions=[ft.TextButton("Cerrar", on_click=lambda _: self.page.update())],
+        )
+        self.page.dialog = dialog
+        dialog.open = True
+        self.page.update()
+
     def _handle_sync_change(self, e) -> None:
         """Maneja el cambio en la sincronización"""
         # Implementar lógica de sincronización
         pass
-
-    def _show_theme_dialog(self, e) -> None:
-        """Muestra el diálogo de selección de tema"""
-
-        def close_dialog(_):
-            dialog.open = False
-            self.page.update()
-
-        def handle_theme_selection(e):
-            if self.theme_manager:
-                self.theme_manager.set_theme(ThemeMode(e.control.value))
-            close_dialog(None)
-
-        current_theme = (
-            self.theme_manager.current_theme.value
-            if self.theme_manager
-            else ThemeMode.LIGHT.value
-        )
-
-        dialog = ft.AlertDialog(
-            modal=True,
-            title=ft.Text("Seleccionar tema", size=20, weight=ft.FontWeight.BOLD),
-            content=ft.Column(
-                controls=[
-                    ft.RadioGroup(
-                        content=ft.Column(
-                            controls=[
-                                ft.Radio(
-                                    value=ThemeMode.LIGHT.value, label="Tema Claro"
-                                ),
-                                ft.Radio(
-                                    value=ThemeMode.DARK.value, label="Tema Oscuro"
-                                ),
-                                ft.Radio(
-                                    value=ThemeMode.SYSTEM.value,
-                                    label="Tema del Sistema",
-                                ),
-                            ],
-                            spacing=5,  # Espacio entre radios
-                        ),
-                        value=current_theme,
-                        on_change=handle_theme_selection,
-                    ),
-                ],
-                tight=True,
-                horizontal_alignment=ft.CrossAxisAlignment.CENTER,  # Centra el contenido horizontalmente
-            ),
-            actions=[
-                ft.TextButton("Cancelar", on_click=close_dialog),
-            ],
-            actions_alignment=ft.MainAxisAlignment.END,
-        )
-
-        self.page.dialog = dialog
-        dialog.open = True
-        self.page.update()
 
     def _show_notifications_dialog(self, e) -> None:
         """Muestra el diálogo de configuración de notificaciones"""
