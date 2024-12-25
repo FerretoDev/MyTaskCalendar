@@ -145,33 +145,26 @@ class SettingsPage(ft.Column):
             dialog.open = True
             self.page.update()
 
-        # Texto que muestra el tema actual
         theme_text = ft.Text(
             get_theme_name(current_theme), size=14, color=ft.colors.PRIMARY
-        )
-
-        # Contenedor para el indicador de tema actual con un ícono
-        theme_indicator = ft.Container(
-            content=ft.Row(
-                controls=[
-                    theme_text,
-                    ft.Icon(ft.icons.ARROW_DROP_DOWN, color=ft.colors.PRIMARY),
-                ],
-                spacing=5,
-                alignment=ft.MainAxisAlignment.END,
-            ),
-            on_click=show_theme_dialog,
-            padding=ft.padding.only(left=8),
         )
 
         return SettingItem(
             title="Tema",
             icon=ft.Icons.DARK_MODE,
             description="Cambiar apariencia de la aplicación",
-            # trailing=theme_switch,
-            trailing=ft.Icon(ft.Icons.ARROW_FORWARD_IOS),
-            # on_click=theme_indicator,
-            on_click=self._show_theme_dialog,
+            trailing=ft.Container(
+                content=ft.Row(
+                    controls=[
+                        theme_text,
+                        ft.Icon(ft.icons.ARROW_DROP_DOWN, color=ft.colors.PRIMARY),
+                    ],
+                    # spacing=5,
+                    width=70,  # Ancho fijo
+                    alignment=ft.MainAxisAlignment.START,
+                ),
+                on_click=show_theme_dialog,
+            ),
         )
 
     def build(self) -> ft.Control:
@@ -211,8 +204,25 @@ class SettingsPage(ft.Column):
         """Crea un item de configuración"""
         return ft.ListTile(
             leading=ft.Icon(item.icon),
-            title=ft.Text(item.title),
-            subtitle=ft.Text(item.description) if item.description else None,
+            title=ft.Text(
+                item.title,
+                # size=16,
+                # max_lines=1,
+                # weight=ft.FontWeight.W_600,
+                # overflow=ft.TextOverflow.ELLIPSIS,
+            ),  # Tamaño ajustado
+            subtitle=(
+                ft.Text(
+                    item.description,
+                    # size=14,
+                    # color=ft.colors.GREY if item.description else None,
+                    # max_lines=2,
+                    # overflow=ft.TextOverflow.ELLIPSIS,
+                    # rtl=True,
+                )
+                if item.description
+                else None
+            ),  # Descripción opcional
             trailing=item.trailing,
             on_click=item.on_click,
         )
