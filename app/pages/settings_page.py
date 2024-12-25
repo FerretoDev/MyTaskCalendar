@@ -181,12 +181,18 @@ class SettingsPage(ft.Column):
                 for title, items in self.settings_sections.items()
             ],
             spacing=20,
-            scroll=ft.ScrollMode.AUTO,
+            scroll=ft.ScrollMode.AUTO,  # Habilitar el desplazamiento en el Column
         )
 
-        return ft.Container(content=settings_list, padding=20, expand=True)
+        scrollable_container = ft.Container(
+            content=settings_list,
+            padding=20,
+            expand=True,
+        )
 
-    def _create_section(self, title: str, items: list[SettingItem]) -> ft.Column:
+        return scrollable_container
+
+    def _create_section(self, title: str, items: List[SettingItem]) -> ft.Column:
         """Crea una sección de configuraciones"""
         return ft.Column(
             controls=[
