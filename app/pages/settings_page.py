@@ -87,26 +87,91 @@ class SettingsPage(ft.Column):
         }
 
     def _create_theme_setting(self) -> SettingItem:
-        """Crea el item de configuración del tema"""
-        theme_switch = ft.Dropdown(
-            value=(
-                self.theme_manager.current_theme.value
-                if self.theme_manager
-                else ThemeMode.LIGHT.value
+        """Crea el item de configuración del tema con un diálogo para selección"""
+        current_theme = (
+            self.theme_manager.current_theme.value
+            if self.theme_manager
+            else ThemeMode.LIGHT.value
+        )
+
+        def get_theme_name(theme_value):
+            theme_names = {
+                ThemeMode.LIGHT.value: "Claro",
+                ThemeMode.DARK.value: "Oscuro",
+                ThemeMode.SYSTEM.value: "Sistema",
+            }
+            return theme_names.get(theme_value, "Desconocido")
+
+        def show_theme_dialog(e):
+            def handle_theme_selection(theme_value):
+                def handle(e):
+                    if self.theme_manager:
+                        self.theme_manager.set_theme(ThemeMode(theme_value))
+                    theme_text.value = get_theme_name(theme_value)
+                    dialog.open = False
+                    self.page.update()
+
+                return handle
+
+            dialog = ft.AlertDialog(
+                modal=True,
+                title=ft.Text("Seleccionar tema", size=20, weight=ft.FontWeight.BOLD),
+                content=ft.Container(
+                    content=ft.Column(
+                        controls=[
+                            ft.ListTile(
+                                leading=ft.Icon(ft.icons.LIGHT_MODE),
+                                title=ft.Text("Tema Claro"),
+                                on_click=handle_theme_selection(ThemeMode.LIGHT.value),
+                            ),
+                            ft.ListTile(
+                                leading=ft.Icon(ft.icons.DARK_MODE),
+                                title=ft.Text("Tema Oscuro"),
+                                on_click=handle_theme_selection(ThemeMode.DARK.value),
+                            ),
+                            ft.ListTile(
+                                leading=ft.Icon(ft.icons.SETTINGS_SYSTEM_DAYDREAM),
+                                title=ft.Text("Tema del Sistema"),
+                                on_click=handle_theme_selection(ThemeMode.SYSTEM.value),
+                            ),
+                        ],
+                        tight=True,
+                    ),
+                    padding=10,
+                ),
+            )
+
+            self.page.dialog = dialog
+            dialog.open = True
+            self.page.update()
+
+        # Texto que muestra el tema actual
+        theme_text = ft.Text(
+            get_theme_name(current_theme), size=14, color=ft.colors.PRIMARY
+        )
+
+        # Contenedor para el indicador de tema actual con un ícono
+        theme_indicator = ft.Container(
+            content=ft.Row(
+                controls=[
+                    theme_text,
+                    ft.Icon(ft.icons.ARROW_DROP_DOWN, color=ft.colors.PRIMARY),
+                ],
+                spacing=5,
+                alignment=ft.MainAxisAlignment.END,
             ),
-            options=[
-                ft.dropdown.Option(ThemeMode.LIGHT.value, "Claro"),
-                ft.dropdown.Option(ThemeMode.DARK.value, "Oscuro"),
-                ft.dropdown.Option(ThemeMode.SYSTEM.value, "Sistema"),
-            ],
-            on_change=self._handle_theme_change,
+            on_click=show_theme_dialog,
+            padding=ft.padding.only(left=8),
         )
 
         return SettingItem(
             title="Tema",
             icon=ft.Icons.DARK_MODE,
-            # description="Cambiar apariencia de la aplicación",
-            trailing=theme_switch,
+            description="Cambiar apariencia de la aplicación",
+            # trailing=theme_switch,
+            trailing=ft.Icon(ft.Icons.ARROW_FORWARD_IOS),
+            # on_click=theme_indicator,
+            on_click=self._show_theme_dialog,
         )
 
     def build(self) -> ft.Control:
@@ -154,6 +219,48 @@ class SettingsPage(ft.Column):
         """Maneja el cambio en la sincronización"""
         # Implementar lógica de sincronización
         pass
+
+    def _show_theme_dialog(self, e) -> None:
+        """Muestra el diálogo de selección de tema"""
+
+        def close_dialog(_):
+            dialog.open = False
+            self.page.update()
+
+        def handle_theme_selection(e):
+            if self.theme_manager:
+                self.theme_manager.set_theme(ThemeMode(e.control.value))
+            close_dialog(None)
+
+        current_theme = (
+            self.theme_manager.current_theme.value
+            if self.theme_manager
+            else ThemeMode.LIGHT.value
+        )
+
+        theme_radio = ft.RadioGroup(
+            content=ft.Column(
+                controls=[
+                    ft.Radio(value=ThemeMode.LIGHT.value, label="Tema Claro"),
+                    ft.Radio(value=ThemeMode.DARK.value, label="Tema Oscuro"),
+                    ft.Radio(value=ThemeMode.SYSTEM.value, label="Tema del Sistema"),
+                ],
+            ),
+            value=current_theme,
+            on_change=handle_theme_selection,
+        )
+
+        dialog = ft.AlertDialog(
+            title=ft.Text("Seleccionar tema"),
+            content=theme_radio,
+            actions=[
+                ft.TextButton("Cancelar", on_click=close_dialog),
+            ],
+        )
+
+        self.page.dialog = dialog
+        dialog.open = True
+        self.page.update()
 
     def _show_notifications_dialog(self, e) -> None:
         """Muestra el diálogo de configuración de notificaciones"""
