@@ -175,6 +175,7 @@ class SettingsPage(ft.Column):
         )
 
     def build(self) -> ft.Control:
+        """Construye la página de configuraciones"""
         settings_list = ft.Column(
             controls=[
                 self._create_section(title, items)
