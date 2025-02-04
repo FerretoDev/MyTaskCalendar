@@ -2,8 +2,9 @@ from typing import List, Optional
 
 import flet as ft
 from components.navigation import create_navigation_bar
+# from components.settings.settings_page import SettingsPage
 from components.theme_manager import ThemeManager, ThemeMode
-from pages import calendar_page, settings_page, tasks_page
+from pages import calendar_page, SettingsPage, tasks_page
 
 
 def main(page: ft.Page) -> None:
@@ -36,7 +37,7 @@ def main(page: ft.Page) -> None:
                 ],
                 appbar=ft.AppBar(
                     center_title=True,
-                    adaptive=True,
+                    # adaptive=True,
                     title=ft.Text(titles[index]),
                     actions=appbar_actions,
                 ),
@@ -65,12 +66,19 @@ def main(page: ft.Page) -> None:
     # Rutas y títulos de las páginas
     routes: List[str] = ["calendar", "tasks", "settings"]
     titles: List[str] = ["Calendario", "Tareas", "Configuración"]
-    pages: List[ft.Control] = [calendar_page(), tasks_page(), settings_page()]
+    pages: List[ft.Control] = [
+        calendar_page(),
+        tasks_page(),
+        SettingsPage(theme_manager=theme_manager),
+        # settings_page(),
+    ]
 
     # Iniciar con la página de calendario
     on_navigation_change(0, routes, titles, pages)
     page.update()
 
 
+if __name__ == "__main__":
+    ft.app(target=main)
 if __name__ == "__main__":
     ft.app(target=main)

@@ -1,7 +1,7 @@
 [tool.mypy]
 files = ["app/", "tests/"]  # Rutas a analizar
 ignore_missing_imports = true  # Ignorar errores por módulos no encontrados
-strict = false  # Activar modo estricto
+strict = true  # Activar modo estricto
 
 #[tool.mypy-unchecked_code]
 #ignore_errors = true  # Ignorar todos los errores en módulos o secciones específicas

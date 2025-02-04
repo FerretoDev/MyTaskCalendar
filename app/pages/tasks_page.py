@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from typing import Any, Callable, List
 
 import flet as ft
 
@@ -75,7 +76,7 @@ class Task(ft.Column):
         self.task_delete(self)
 
 
-class TodoApp(ft.Column):
+class TasksPage(ft.Column):
     def __init__(self):
         super().__init__()
         self.new_task = ft.TextField(
@@ -195,5 +196,97 @@ class TodoApp(ft.Column):
         # self.items_left.value = f"{count} active item(s) left"
 
 
-def tasks_page():
-    return TodoApp()
+class TaskListItem(ft.Container):
+    def __init__(
+        self, task_data: Any, on_status_changed: Callable, on_delete: Callable
+    ) -> None:
+        super().__init__()
+        self.padding = 10
+        self.border_radius = ft.border_radius.all(8)
+        self.bgcolor = ft.colors.BLUE_50
+        self.data = task_data
+
+        self.content = ft.Row(
+            controls=[
+                ft.Checkbox(
+                    value=task_data["completed"],
+                    on_change=on_status_changed,
+                ),
+                ft.Text(task_data["title"], size=16, expand=True),
+                ft.IconButton(
+                    icon=ft.icons.DELETE,
+                    icon_color=ft.colors.RED_400,
+                    on_click=on_delete,
+                ),
+            ],
+            alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+        )
+
+
+class TaskView(ft.Container):
+    def __init__(self) -> None:
+        super().__init__()
+        self.tasks: List[Any] = []
+        self.padding = 20
+        self.content = self.build_task_view()
+
+    def build_task_view(self) -> Any:
+        return ft.Column(
+            controls=[
+                ft.Row(
+                    controls=[
+                        ft.TextField(
+                            hint_text="Nueva tarea...",
+                            expand=True,
+                            on_submit=self.add_task,
+                        ),
+                        ft.IconButton(
+                            icon=ft.icons.ADD,
+                            on_click=self.add_task,
+                        ),
+                    ],
+                ),
+                ft.Column(
+                    controls=[
+                        TaskListItem(
+                            task_data=task,
+                            on_status_changed=lambda e: self.toggle_task(task),
+                            on_delete=lambda e: self.delete_task(task),
+                        )
+                        for task in self.tasks
+                    ],
+                    scroll=ft.ScrollMode.AUTO,
+                    spacing=10,
+                ),
+            ],
+            spacing=20,
+        )
+
+    def add_task(self, e: Any) -> Any:
+        new_task = {
+            "title": e.control.value if hasattr(e.control, "value") else "",
+            "completed": False,
+            "date": datetime.now(),
+        }
+        if new_task["title"]:
+            self.tasks.append(new_task)
+            self.content = self.build_task_view()
+            self.update()
+
+    def toggle_task(self, task: Any) -> Any:
+        task["completed"] = not task["completed"]
+        self.content = self.build_task_view()
+        self.update()
+
+    def delete_task(self, task: Any) -> Any:
+        self.tasks.remove(task)
+        self.content = self.build_task_view()
+        self.update()
+
+
+def tasks_page() -> ft.Control:
+    return ft.Column(
+        controls=[
+            TaskView(),
+        ],
+    )
