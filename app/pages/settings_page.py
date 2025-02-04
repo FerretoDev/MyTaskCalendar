@@ -17,7 +17,7 @@ class SettingsPage(ft.Column):
         super().__init__()
         self.theme_manager = theme_manager
         self.theme_selector = ThemeSelector(theme_manager)
-        self.expand = True  # Asegura que el Column ocupe todo el espacio disponible
+        self.expand = True   # Asegura que el Column ocupe # tod# o el espacio disponible
         self.scroll = ft.ScrollMode.HIDDEN  # Habilita el scroll en el Column principal
         self._initialize_settings()
 
