@@ -162,4 +162,5 @@ cython_debug/
 #.idea/
 .zed/
 .vscode/
+.idea/
 get-pip.py

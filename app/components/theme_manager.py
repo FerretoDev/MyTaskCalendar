@@ -78,10 +78,13 @@ class ThemeManager:
 
         if theme_mode == ThemeMode.DARK:
             self.page.theme_mode = ft.ThemeMode.DARK
+            self.page.bgcolor = None  # Usar el color del tema oscuro
         elif theme_mode == ThemeMode.SYSTEM:
             self.page.theme_mode = ft.ThemeMode.SYSTEM
+            self.page.bgcolor = None  # Usar el color del tema del sistema
         else:  # LIGHT
             self.page.theme_mode = ft.ThemeMode.LIGHT
+            self.page.bgcolor = None  # Usar el color del tema claro
 
         if self.on_theme_changed:
             self.on_theme_changed(theme_mode)

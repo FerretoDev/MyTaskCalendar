@@ -1,5 +1,5 @@
 # settings/settings_page.py
-from typing import Optional
+from typing import Callable, Optional
 
 import flet as ft
 from components.dialogs.notifications import NotificationsDialog
@@ -90,7 +90,9 @@ class SettingsPage(ft.Column):
                 dialog_ref.open = False
                 e.page.update()
 
-        def select_color(color: str, color_value: str):
+        def select_color(
+            color: str, color_value: str
+        ) -> Callable[[ft.ControlEvent], None]:
             def handler(_: ft.ControlEvent) -> None:
                 if dialog_ref:
                     dialog_ref.open = False
@@ -366,8 +368,8 @@ class SettingsPage(ft.Column):
         content_container = ft.Container(
             content=ft.Column(
                 controls=[
-                    page_title,
-                    settings_list,
+                    page_title,  # Tal vez lo elimine, ya que tengo un header global
+                    settings_list,  # Lista de todos los manejadores/handlers o ajustes
                 ],
                 spacing=10,
                 scroll=ft.ScrollMode.AUTO,

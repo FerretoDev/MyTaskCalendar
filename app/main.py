@@ -38,7 +38,7 @@ def main(page: ft.Page) -> None:
                 ],
                 appbar=ft.AppBar(
                     center_title=True,
-                    # adaptive=True,
+                    adaptive=True,
                     title=ft.Text(titles[index]),
                     actions=appbar_actions,
                 ),
@@ -60,9 +60,10 @@ def main(page: ft.Page) -> None:
     # Configuración inicial de la página
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
     page.title = "Calendario y Tareas"
+    page.bgcolor = None  # Usar el color de fondo del tema
 
     # Inicializar el tema
-    theme_manager.set_theme(ThemeMode.LIGHT)
+    theme_manager.set_theme(ThemeMode.DARK)
 
     # Rutas y títulos de las páginas
     routes: List[str] = ["calendar", "tasks", "settings"]
@@ -74,7 +75,7 @@ def main(page: ft.Page) -> None:
     ]
 
     # Iniciar con la página de calendario
-    on_navigation_change(0, routes, titles, pages)
+    on_navigation_change(2, routes, titles, pages)
     page.update()
 
 
