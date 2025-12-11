@@ -94,6 +94,20 @@ class SettingsPage(ft.Column):
             def handler(_: ft.ControlEvent) -> None:
                 if dialog_ref:
                     dialog_ref.open = False
+
+                # Aplicar el color de acento
+                if self.theme_manager:
+                    # Mapear nombres de colores a color_scheme_seed
+                    color_map: dict[str, str] = {
+                        "Azul": "blue",
+                        "Verde": "green",
+                        "Naranja": "orange",
+                        "Morado": "purple",
+                        "Rosa": "pink",
+                        "Rojo": "red",
+                    }
+                    self.theme_manager.set_accent_color(color_map.get(color, "blue"))
+
                 e.page.snack_bar = ft.SnackBar(
                     content=ft.Row(
                         controls=[
@@ -103,7 +117,7 @@ class SettingsPage(ft.Column):
                                 bgcolor=color_value,
                                 border_radius=ft.border_radius.all(10),
                             ),
-                            ft.Text(f"Color {color} seleccionado"),
+                            ft.Text(f"Color {color} aplicado"),
                         ],
                         spacing=10,
                     ),
