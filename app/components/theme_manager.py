@@ -21,7 +21,6 @@ class ThemeManager:
         self.accent_color = "blue"  # Color de acento por defecto
         self.on_theme_changed = on_theme_changed
         self._load_saved_preferences()
-        self._load_saved_preferences()
 
     def _load_saved_preferences(self) -> None:
         """Carga las preferencias guardadas del usuario"""
@@ -73,16 +72,16 @@ class ThemeManager:
         """
         self.current_theme = theme_mode
 
-        # Mapear el tema correctamente
+        # Mapear el tema correctamente y configurar ambos temas (light y dark)
+        self.page.theme = self._create_light_theme()
+        self.page.dark_theme = self._create_dark_theme()
+
         if theme_mode == ThemeMode.DARK:
             self.page.theme_mode = ft.ThemeMode.DARK
-            self.page.theme = self._create_dark_theme()
         elif theme_mode == ThemeMode.SYSTEM:
             self.page.theme_mode = ft.ThemeMode.SYSTEM
-            self.page.theme = self._create_light_theme()
         else:  # LIGHT
             self.page.theme_mode = ft.ThemeMode.LIGHT
-            self.page.theme = self._create_light_theme()
 
         if self.on_theme_changed:
             self.on_theme_changed(theme_mode)

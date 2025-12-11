@@ -211,7 +211,7 @@ class TaskListItem(ft.Container):
         super().__init__()
         self.padding = 10
         self.border_radius = ft.border_radius.all(8)
-        self.bgcolor = ft.Colors.BLUE_50
+        self.bgcolor = ft.Colors.BLUE_50  # Color suave para las tareas
         self.data = task_data
 
         self.content = ft.Row(

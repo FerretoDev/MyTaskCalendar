@@ -18,17 +18,25 @@ class CalendarDayButton(ft.Container):
 
         # Determinar el color de fondo según el estado
         if is_today:
-            self.bgcolor = ft.Colors.BLUE_400
-            text_color = ft.Colors.WHITE
+            self.bgcolor = ft.Colors.PRIMARY
+            text_color = ft.Colors.ON_PRIMARY
         elif has_tasks:
-            self.bgcolor = ft.Colors.BLUE_50
-            text_color = ft.Colors.BLUE_900
+            self.bgcolor = (
+                ft.Colors.SECONDARY_CONTAINER
+                if hasattr(ft.Colors, "SECONDARY_CONTAINER")
+                else ft.Colors.BLUE_100
+            )
+            text_color = (
+                ft.Colors.ON_SECONDARY_CONTAINER
+                if hasattr(ft.Colors, "ON_SECONDARY_CONTAINER")
+                else ft.Colors.BLUE_900
+            )
         elif is_weekend:
-            self.bgcolor = ft.Colors.GREY_50
+            self.bgcolor = ft.Colors.GREY_100
             text_color = ft.Colors.GREY_700
         else:
-            self.bgcolor = ft.Colors.WHITE
-            text_color = ft.Colors.BLACK87
+            self.bgcolor = None  # Usar color de superficie del tema
+            text_color = None  # Usar color de texto del tema
 
         self.border_radius = ft.border_radius.all(12)
         self.border = ft.border.all(
@@ -100,7 +108,7 @@ class CalendarView(ft.Container):
         self.current_date = datetime.now()
         self.padding = 20
         self.border_radius = ft.border_radius.all(16)
-        self.bgcolor = ft.Colors.WHITE
+        self.bgcolor = None  # Usar color del tema
         self.shadow = ft.BoxShadow(
             spread_radius=2,
             blur_radius=15,
