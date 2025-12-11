@@ -5,7 +5,7 @@ from components.navigation import create_navigation_bar
 
 # from components.settings.settings_page import SettingsPage
 from components.theme_manager import ThemeManager, ThemeMode
-from pages import SettingsPage, calendar_page, create_settings_page, tasks_page
+from pages import calendar_page, create_settings_page, tasks_page
 
 
 def main(page: ft.Page) -> None:
@@ -62,7 +62,7 @@ def main(page: ft.Page) -> None:
     page.title = "Calendario y Tareas"
 
     # Inicializar el tema
-    page.theme_mode = theme_manager.set_theme(ThemeMode.LIGHT)
+    theme_manager.set_theme(ThemeMode.LIGHT)
 
     # Rutas y títulos de las páginas
     routes: List[str] = ["calendar", "tasks", "settings"]
