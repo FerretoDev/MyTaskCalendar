@@ -71,8 +71,6 @@ def main(page: ft.Page) -> None:
         calendar_page(),
         tasks_page(),
         create_settings_page(theme_manager=theme_manager),
-        # SettingsPage(theme_manager=theme_manager),
-        # settings_page(),
     ]
 
     # Iniciar con la página de calendario

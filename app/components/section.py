@@ -16,19 +16,48 @@ class SettingsSection(ft.Column):
 
     def _build(self) -> List[ft.Control]:
         return [
-            ft.Text(self.title, size=20, weight=ft.FontWeight.BOLD),
+            ft.Text(
+                self.title,
+                size=18,
+                weight=ft.FontWeight.BOLD,
+                color=ft.Colors.BLUE_900,
+            ),
             ft.Card(
-                content=ft.Column(
-                    controls=[self._create_setting_item(item) for item in self.items]
-                )
+                elevation=2,
+                content=ft.Container(
+                    content=ft.Column(
+                        controls=[
+                            self._create_setting_item(item) for item in self.items
+                        ],
+                        spacing=0,
+                    ),
+                    padding=5,
+                ),
             ),
         ]
 
     def _create_setting_item(self, item: SettingItem) -> ft.ListTile:
         return ft.ListTile(
-            leading=ft.Icon(item.icon),
-            title=ft.Text(item.title),
-            subtitle=ft.Text(item.description) if item.description else None,
+            leading=ft.Icon(
+                item.icon,
+                color=ft.Colors.BLUE_700,
+                size=24,
+            ),
+            title=ft.Text(
+                item.title,
+                weight=ft.FontWeight.W_500,
+                size=15,
+            ),
+            subtitle=(
+                ft.Text(
+                    item.description,
+                    size=12,
+                    color=ft.Colors.GREY_600,
+                )
+                if item.description
+                else None
+            ),
             trailing=item.trailing,
             on_click=item.on_click,
+            hover_color=ft.Colors.BLUE_50,
         )
