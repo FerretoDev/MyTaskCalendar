@@ -2,7 +2,6 @@ from typing import Callable, List, Optional
 
 import flet as ft
 from components.theme_manager import ThemeManager, ThemeMode
-
 from components.types import ClickEventHandler, SettingItem
 
 
@@ -87,17 +86,17 @@ class ThemeSelector:
     ) -> List[ft.ListTile]:
         return [
             ft.ListTile(
-                leading=ft.Icon(ft.icons.LIGHT_MODE),
+                leading=ft.Icon(ft.Icons.LIGHT_MODE),
                 title=ft.Text("Tema Claro"),
                 on_click=handler(ThemeMode.LIGHT.value),
             ),
             ft.ListTile(
-                leading=ft.Icon(ft.icons.DARK_MODE),
+                leading=ft.Icon(ft.Icons.DARK_MODE),
                 title=ft.Text("Tema Oscuro"),
                 on_click=handler(ThemeMode.DARK.value),
             ),
             ft.ListTile(
-                leading=ft.Icon(ft.icons.SETTINGS_SYSTEM_DAYDREAM),
+                leading=ft.Icon(ft.Icons.SETTINGS_SYSTEM_DAYDREAM),
                 title=ft.Text("Tema del Sistema"),
                 on_click=handler(ThemeMode.SYSTEM.value),
             ),

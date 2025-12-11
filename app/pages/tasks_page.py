@@ -5,7 +5,12 @@ import flet as ft
 
 
 class Task(ft.Column):
-    def __init__(self, task_name, task_status_change, task_delete):
+    def __init__(
+        self,
+        task_name: str,
+        task_status_change: Callable[["Task"], None],
+        task_delete: Callable[["Task"], None],
+    ) -> None:
         super().__init__()
         self.completed = False
         self.task_name = task_name
@@ -47,7 +52,7 @@ class Task(ft.Column):
                 self.edit_name,
                 ft.IconButton(
                     icon=ft.Icons.DONE_OUTLINE_OUTLINED,
-                    icon_color=ft.colors.GREEN,
+                    icon_color=ft.Colors.GREEN,
                     # tooltip="Update To-Do",
                     tooltip="Actualizar To-Do",
                     on_click=self.save_clicked,
@@ -56,28 +61,28 @@ class Task(ft.Column):
         )
         self.controls = [self.display_view, self.edit_view]
 
-    def edit_clicked(self, e):
+    def edit_clicked(self, e: Any) -> None:
         self.edit_name.value = self.display_task.label
         self.display_view.visible = False
         self.edit_view.visible = True
         self.update()
 
-    def save_clicked(self, e):
+    def save_clicked(self, e: Any) -> None:
         self.display_task.label = self.edit_name.value
         self.display_view.visible = True
         self.edit_view.visible = False
         self.update()
 
-    def status_changed(self, e):
+    def status_changed(self, e: Any) -> None:
         self.completed = self.display_task.value
         self.task_status_change(self)
 
-    def delete_clicked(self, e):
+    def delete_clicked(self, e: Any) -> None:
         self.task_delete(self)
 
 
 class TasksPage(ft.Column):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
         self.new_task = ft.TextField(
             hint_text="¿Qué necesita hacer?",
@@ -140,7 +145,7 @@ class TasksPage(ft.Column):
             ),
         ]
 
-    def add_clicked(self, e):
+    def add_clicked(self, e: Any) -> None:
         if self.new_task.value:
             task = Task(self.new_task.value, self.task_status_change, self.task_delete)
             self.tasks.controls.append(task)
@@ -148,25 +153,25 @@ class TasksPage(ft.Column):
             self.new_task.focus()
             self.update()
 
-    def task_status_change(self, task):
+    def task_status_change(self, task: "Task") -> None:
         self.update()
 
-    def task_delete(self, task):
+    def task_delete(self, task: "Task") -> None:
         self.tasks.controls.remove(task)
         self.update()
 
-    def tabs_changed(self, e):
+    def tabs_changed(self, e: Any) -> None:
         self.update()
 
-    def clear_clicked(self, e):
+    def clear_clicked(self, e: Any) -> None:
         for task in self.tasks.controls[:]:
             if task.completed:
                 self.task_delete(task)
 
-    def before_update(self):
+    def before_update(self) -> None:
         status = self.filter.tabs[self.filter.selected_index].text
         count = 0
-        today = datetime.now()
+        today = datetime.now().date()
         tomorrow = today + timedelta(days=1)
         for task in self.tasks.controls:
             task_date = today  # Aquí podrías definir la fecha de cada tarea
@@ -198,12 +203,15 @@ class TasksPage(ft.Column):
 
 class TaskListItem(ft.Container):
     def __init__(
-        self, task_data: Any, on_status_changed: Callable, on_delete: Callable
+        self,
+        task_data: Any,
+        on_status_changed: Callable[[Any], None],
+        on_delete: Callable[[Any], None],
     ) -> None:
         super().__init__()
         self.padding = 10
         self.border_radius = ft.border_radius.all(8)
-        self.bgcolor = ft.colors.BLUE_50
+        self.bgcolor = ft.Colors.BLUE_50
         self.data = task_data
 
         self.content = ft.Row(
@@ -214,8 +222,8 @@ class TaskListItem(ft.Container):
                 ),
                 ft.Text(task_data["title"], size=16, expand=True),
                 ft.IconButton(
-                    icon=ft.icons.DELETE,
-                    icon_color=ft.colors.RED_400,
+                    icon=ft.Icons.DELETE,
+                    icon_color=ft.Colors.RED_400,
                     on_click=on_delete,
                 ),
             ],
@@ -241,7 +249,7 @@ class TaskView(ft.Container):
                             on_submit=self.add_task,
                         ),
                         ft.IconButton(
-                            icon=ft.icons.ADD,
+                            icon=ft.Icons.ADD,
                             on_click=self.add_task,
                         ),
                     ],

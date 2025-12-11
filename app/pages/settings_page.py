@@ -16,9 +16,10 @@ class SettingsPage(ft.Column):
         super().__init__()
         self.theme_manager = theme_manager
         self.theme_selector = ThemeSelector(theme_manager)
-        self.expand = True  # Asegura que el Column ocupe # tod# o el espacio disponible
+        self.expand = True  # Asegura que el Column ocupe todo el espacio disponible
         self.scroll = ft.ScrollMode.HIDDEN  # Habilita el scroll en el Column principal
         self._initialize_settings()
+        self._build_controls()
 
     def _initialize_settings(self) -> None:
         self.settings_sections = {
@@ -78,7 +79,7 @@ class SettingsPage(ft.Column):
             ],
         }
 
-    def build(self) -> ft.Control:
+    def _build_controls(self) -> None:
         settings_list = ft.Column(
             controls=[
                 SettingsSection(title, items)
@@ -93,9 +94,9 @@ class SettingsPage(ft.Column):
             padding=20,
         )
 
-        return content_container
+        self.controls = [content_container]
 
 
 def create_settings_page(theme_manager: Optional[ThemeManager] = None) -> ft.Control:
     """Factory function to create the settings page"""
-    return SettingsPage(theme_manager)
+    return SettingsPage(theme_manager=theme_manager)

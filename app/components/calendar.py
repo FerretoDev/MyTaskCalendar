@@ -1,4 +1,5 @@
 import datetime
+from typing import Any, Optional
 
 import flet as ft
 
@@ -6,23 +7,23 @@ import flet as ft
 
 
 class Calendar(ft.Row):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
         self.selected_date = ft.Text("No date selected")
-        self.date_picker = None
+        self.date_picker: Optional[ft.DatePicker] = None
 
-    def handle_change(self, e):
+    def handle_change(self, e: Any) -> None:
         # Actualiza el texto con la fecha seleccionada
         self.selected_date.value = (
             f"Date selected: {e.control.value.strftime('%Y-%m-%d')}"
         )
         self.update()
 
-    def handle_dismissal(self, e):
+    def handle_dismissal(self, e: Any) -> None:
         self.selected_date.value = "DatePicker dismissed"
         self.update()
 
-    def build(self):
+    def build(self) -> ft.ResponsiveRow:
         # Botón para abrir el DatePicker
         return ft.ResponsiveRow(  # Usar ResponsiveRow para que se ajuste al tamaño de la pantalla
             controls=[
@@ -30,7 +31,7 @@ class Calendar(ft.Row):
                     controls=[
                         ft.ElevatedButton(
                             "Pick date",
-                            icon=ft.icons.CALENDAR_MONTH,
+                            icon=ft.Icons.CALENDAR_MONTH,
                             on_click=self.open_date_picker,
                         ),
                         self.selected_date,  # Muestra la fecha seleccionada
@@ -44,7 +45,7 @@ class Calendar(ft.Row):
             ]
         )
 
-    def open_date_picker(self, e):
+    def open_date_picker(self, e: Any) -> None:
         # Configura el DatePicker dentro del contexto del control y muestra el calendario en la página correcta
         if not self.date_picker:
             self.date_picker = ft.DatePicker(

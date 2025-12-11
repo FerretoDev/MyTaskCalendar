@@ -1,7 +1,6 @@
 from typing import List
 
 import flet as ft
-
 from components.types import SettingItem
 
 

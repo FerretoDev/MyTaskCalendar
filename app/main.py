@@ -1,10 +1,11 @@
-from typing import List, Optional
+from typing import List
 
 import flet as ft
 from components.navigation import create_navigation_bar
+
 # from components.settings.settings_page import SettingsPage
 from components.theme_manager import ThemeManager, ThemeMode
-from pages import calendar_page, SettingsPage, tasks_page
+from pages import SettingsPage, calendar_page, create_settings_page, tasks_page
 
 
 def main(page: ft.Page) -> None:
@@ -69,7 +70,8 @@ def main(page: ft.Page) -> None:
     pages: List[ft.Control] = [
         calendar_page(),
         tasks_page(),
-        SettingsPage(theme_manager=theme_manager),
+        create_settings_page(theme_manager=theme_manager),
+        # SettingsPage(theme_manager=theme_manager),
         # settings_page(),
     ]
 
@@ -78,7 +80,5 @@ def main(page: ft.Page) -> None:
     page.update()
 
 
-if __name__ == "__main__":
-    ft.app(target=main)
 if __name__ == "__main__":
     ft.app(target=main)

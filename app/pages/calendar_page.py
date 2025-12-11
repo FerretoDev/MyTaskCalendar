@@ -8,9 +8,9 @@ import flet as ft
 class CalendarDayButton(ft.Container):
     def __init__(self, text: str, day_clicked: Any, has_tasks: bool = False) -> None:
         super().__init__()
-        self.bgcolor = ft.colors.BLUE_100 if has_tasks else ft.colors.WHITE
+        self.bgcolor = ft.Colors.BLUE_100 if has_tasks else ft.Colors.WHITE
         self.border_radius = ft.border_radius.all(8)
-        self.border = ft.border.all(1, ft.colors.BLACK12)
+        self.border = ft.border.all(1, ft.Colors.BLACK12)
         self.padding = 10
         self.data = text
         self.on_click = day_clicked
@@ -70,7 +70,7 @@ class CalendarView(ft.Container):
                 ft.Row(
                     controls=[
                         ft.IconButton(
-                            icon=ft.icons.ARROW_LEFT, on_click=self.previous_month
+                            icon=ft.Icons.ARROW_LEFT, on_click=self.previous_month
                         ),
                         ft.Text(
                             self.current_date.strftime("%B %Y"),
@@ -78,7 +78,7 @@ class CalendarView(ft.Container):
                             weight=ft.FontWeight.BOLD,
                         ),
                         ft.IconButton(
-                            icon=ft.icons.ARROW_RIGHT, on_click=self.next_month
+                            icon=ft.Icons.ARROW_RIGHT, on_click=self.next_month
                         ),
                     ],
                     alignment=ft.MainAxisAlignment.CENTER,
@@ -88,9 +88,15 @@ class CalendarView(ft.Container):
         )
 
     def day_clicked(self, e: Any) -> None:
-        print(f"Día seleccionado: {e.control.data}")
+        if e.page:
+            e.page.snack_bar = ft.SnackBar(
+                content=ft.Text(f"Día seleccionado: {e.control.data}"),
+                duration=1000,
+            )
+            e.page.snack_bar.open = True
+            e.page.update()
 
-    def previous_month(self: Any, e: Any) -> None:
+    def previous_month(self, e: Any) -> None:
         if self.current_date.month == 1:
             self.current_date = self.current_date.replace(
                 year=self.current_date.year - 1, month=12
