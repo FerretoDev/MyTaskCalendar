@@ -31,14 +31,16 @@ class ThemeManager:
             theme_mode: Modo de tema a establecer
         """
         self.current_theme = theme_mode
-        self.page.theme_mode = (
-            ft.ThemeMode.DARK if theme_mode == ft.ThemeMode.DARK else ft.ThemeMode.LIGHT
-        )
 
-        # Aplicar colores y estilos específicos según el tema
+        # Mapear el tema correctamente
         if theme_mode == ThemeMode.DARK:
+            self.page.theme_mode = ft.ThemeMode.DARK
             self.page.theme = self._create_dark_theme()
-        else:
+        elif theme_mode == ThemeMode.SYSTEM:
+            self.page.theme_mode = ft.ThemeMode.SYSTEM
+            self.page.theme = self._create_light_theme()
+        else:  # LIGHT
+            self.page.theme_mode = ft.ThemeMode.LIGHT
             self.page.theme = self._create_light_theme()
 
         if self.on_theme_changed:

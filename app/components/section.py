@@ -16,11 +16,14 @@ class SettingsSection(ft.Column):
 
     def _build(self) -> List[ft.Control]:
         return [
-            ft.Text(
-                self.title,
-                size=18,
-                weight=ft.FontWeight.BOLD,
-                color=ft.Colors.BLUE_900,
+            ft.Container(
+                content=ft.Text(
+                    self.title,
+                    size=18,
+                    weight=ft.FontWeight.BOLD,
+                    color=ft.Colors.BLUE_900,
+                ),
+                padding=ft.padding.only(left=5, bottom=8),
             ),
             ft.Card(
                 elevation=2,
@@ -31,7 +34,7 @@ class SettingsSection(ft.Column):
                         ],
                         spacing=0,
                     ),
-                    padding=5,
+                    padding=8,
                 ),
             ),
         ]

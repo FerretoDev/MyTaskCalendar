@@ -80,16 +80,33 @@ class SettingsPage(ft.Column):
 
     def _show_accent_color_dialog(self, e: ft.ControlEvent) -> None:
         """Muestra el diálogo de selección de color de acento"""
+        if not e.page:
+            return
+
+        dialog_ref = None
 
         def close_dialog(_: ft.ControlEvent) -> None:
-            dialog.open = False
-            e.page.update()
+            if dialog_ref:
+                dialog_ref.open = False
+                e.page.update()
 
-        def select_color(color: str):
+        def select_color(color: str, color_value: str):
             def handler(_: ft.ControlEvent) -> None:
-                dialog.open = False
+                if dialog_ref:
+                    dialog_ref.open = False
                 e.page.snack_bar = ft.SnackBar(
-                    content=ft.Text(f"Color {color} seleccionado"),
+                    content=ft.Row(
+                        controls=[
+                            ft.Container(
+                                width=20,
+                                height=20,
+                                bgcolor=color_value,
+                                border_radius=ft.border_radius.all(10),
+                            ),
+                            ft.Text(f"Color {color} seleccionado"),
+                        ],
+                        spacing=10,
+                    ),
                     duration=2000,
                 )
                 e.page.snack_bar.open = True
@@ -106,9 +123,13 @@ class SettingsPage(ft.Column):
             ("Rojo", ft.Colors.RED_400),
         ]
 
-        dialog = ft.AlertDialog(
+        dialog_ref = ft.AlertDialog(
             modal=True,
-            title=ft.Text("Seleccionar color de acento"),
+            title=ft.Text(
+                "Seleccionar color de acento",
+                size=20,
+                weight=ft.FontWeight.BOLD,
+            ),
             content=ft.Container(
                 content=ft.Column(
                     controls=[
@@ -118,13 +139,21 @@ class SettingsPage(ft.Column):
                                 height=40,
                                 bgcolor=color_value,
                                 border_radius=ft.border_radius.all(20),
+                                shadow=ft.BoxShadow(
+                                    spread_radius=1,
+                                    blur_radius=5,
+                                    color=ft.Colors.with_opacity(0.3, color_value),
+                                    offset=ft.Offset(0, 2),
+                                ),
                             ),
-                            title=ft.Text(color_name),
-                            on_click=select_color(color_name),
+                            title=ft.Text(color_name, weight=ft.FontWeight.W_500),
+                            on_click=select_color(color_name, color_value),
+                            hover_color=ft.Colors.BLUE_50,
                         )
                         for color_name, color_value in colors
                     ],
                     tight=True,
+                    spacing=5,
                 ),
                 padding=10,
             ),
@@ -133,8 +162,8 @@ class SettingsPage(ft.Column):
             ],
         )
 
-        e.page.dialog = dialog
-        dialog.open = True
+        e.page.overlay.append(dialog_ref)
+        dialog_ref.open = True
         e.page.update()
 
     def _show_support_dialog(self, e: ft.ControlEvent) -> None:
@@ -232,7 +261,11 @@ class SettingsPage(ft.Column):
                     title="Color de acento",
                     icon=ft.Icons.COLOR_LENS,
                     description="Personaliza el color principal de la aplicación",
-                    trailing=ft.Icon(ft.Icons.ARROW_FORWARD_IOS, size=16),
+                    trailing=ft.Icon(
+                        ft.Icons.ARROW_FORWARD_IOS,
+                        size=16,
+                        color=ft.Colors.GREY_400,
+                    ),
                     on_click=self._handle_accent_color,
                 ),
             ],
@@ -296,18 +329,37 @@ class SettingsPage(ft.Column):
         }
 
     def _build_controls(self) -> None:
+        # Título de la página
+        page_title = ft.Container(
+            content=ft.Text(
+                "Configuración",
+                size=28,
+                weight=ft.FontWeight.BOLD,
+                color=ft.Colors.BLUE_900,
+            ),
+            padding=ft.padding.only(bottom=10),
+        )
+
         settings_list = ft.Column(
             controls=[
                 SettingsSection(title, items)
                 for title, items in self.settings_sections.items()
             ],
-            spacing=20,
+            spacing=25,
         )
 
         # Wrap the settings list in a Container with padding
         content_container = ft.Container(
-            content=settings_list,
+            content=ft.Column(
+                controls=[
+                    page_title,
+                    settings_list,
+                ],
+                spacing=10,
+                scroll=ft.ScrollMode.AUTO,
+            ),
             padding=20,
+            expand=True,
         )
 
         self.controls = [content_container]

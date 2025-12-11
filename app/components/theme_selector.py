@@ -24,14 +24,31 @@ class ThemeSelector:
         )
 
         theme_text = ft.Text(
-            self._get_theme_name(current_theme), size=14, color=ft.Colors.PRIMARY
+            self._get_theme_name(current_theme),
+            size=13,
+            color=ft.Colors.GREY_700,
+            weight=ft.FontWeight.W_500,
         )
 
         return SettingItem(
             title="Tema",
             icon=ft.Icons.DARK_MODE,
             description="Cambiar apariencia de la aplicación",
-            trailing=self._create_theme_selector(theme_text),
+            trailing=ft.Container(
+                content=ft.Row(
+                    controls=[
+                        theme_text,
+                        ft.Icon(
+                            ft.Icons.ARROW_FORWARD_IOS,
+                            size=16,
+                            color=ft.Colors.GREY_400,
+                        ),
+                    ],
+                    spacing=5,
+                    tight=True,
+                ),
+                padding=ft.padding.only(right=5),
+            ),
             on_click=lambda e: self._show_theme_dialog(e, theme_text),
         )
 
@@ -52,24 +69,44 @@ class ThemeSelector:
         )
 
     def _show_theme_dialog(self, e: ft.ControlEvent, theme_text: ft.Text) -> None:
-        dialog = self._create_theme_dialog(theme_text)
-        page = e.page
-        page.dialog = dialog
-        dialog.open = True
-        page.update()
+        if not e.page:
+            return
 
-    def _create_theme_dialog(self, theme_text: ft.Text) -> ft.AlertDialog:
+        dialog = self._create_theme_dialog(e.page, theme_text)
+        e.page.overlay.append(dialog)
+        dialog.open = True
+        e.page.update()
+
+    def _create_theme_dialog(
+        self, page: ft.Page, theme_text: ft.Text
+    ) -> ft.AlertDialog:
+        dialog_ref = None
+
+        def close_dialog(_: ft.ControlEvent) -> None:
+            if dialog_ref:
+                dialog_ref.open = False
+                page.update()
+
         def handle_theme_selection(theme_value: str) -> ClickEventHandler:
             def handle(e: ft.ControlEvent) -> None:
                 if self.theme_manager:
                     self.theme_manager.set_theme(ThemeMode(theme_value))
                 theme_text.value = self._get_theme_name(theme_value)
-                e.page.dialog.open = False
-                e.page.update()
+                theme_text.update()
+                if dialog_ref:
+                    dialog_ref.open = False
+                page.snack_bar = ft.SnackBar(
+                    content=ft.Text(
+                        f"Tema {self._get_theme_name(theme_value)} activado"
+                    ),
+                    duration=2000,
+                )
+                page.snack_bar.open = True
+                page.update()
 
             return handle
 
-        return ft.AlertDialog(
+        dialog_ref = ft.AlertDialog(
             modal=True,
             title=ft.Text("Seleccionar tema", size=20, weight=ft.FontWeight.BOLD),
             content=ft.Container(
@@ -79,25 +116,35 @@ class ThemeSelector:
                 ),
                 padding=10,
             ),
+            actions=[
+                ft.TextButton("Cerrar", on_click=close_dialog),
+            ],
         )
+
+        return dialog_ref
 
     def _create_theme_options(
         self, handler: Callable[[str], ClickEventHandler]
     ) -> List[ft.ListTile]:
         return [
             ft.ListTile(
-                leading=ft.Icon(ft.Icons.LIGHT_MODE),
+                leading=ft.Icon(ft.Icons.LIGHT_MODE, color=ft.Colors.AMBER_700),
                 title=ft.Text("Tema Claro"),
                 on_click=handler(ThemeMode.LIGHT.value),
+                hover_color=ft.Colors.BLUE_50,
             ),
             ft.ListTile(
-                leading=ft.Icon(ft.Icons.DARK_MODE),
+                leading=ft.Icon(ft.Icons.DARK_MODE, color=ft.Colors.INDIGO_700),
                 title=ft.Text("Tema Oscuro"),
                 on_click=handler(ThemeMode.DARK.value),
+                hover_color=ft.Colors.BLUE_50,
             ),
             ft.ListTile(
-                leading=ft.Icon(ft.Icons.SETTINGS_SYSTEM_DAYDREAM),
+                leading=ft.Icon(
+                    ft.Icons.SETTINGS_SYSTEM_DAYDREAM, color=ft.Colors.BLUE_700
+                ),
                 title=ft.Text("Tema del Sistema"),
                 on_click=handler(ThemeMode.SYSTEM.value),
+                hover_color=ft.Colors.BLUE_50,
             ),
         ]
