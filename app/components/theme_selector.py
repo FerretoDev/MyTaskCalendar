@@ -91,8 +91,6 @@ class ThemeSelector:
             def handle(e: ft.ControlEvent) -> None:
                 if self.theme_manager:
                     self.theme_manager.set_theme(ThemeMode(theme_value))
-                theme_text.value = self._get_theme_name(theme_value)
-                theme_text.update()
                 if dialog_ref:
                     dialog_ref.open = False
                 page.snack_bar = ft.SnackBar(

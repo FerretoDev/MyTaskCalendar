@@ -1,5 +1,5 @@
 # settings/settings_page.py
-from typing import Callable, Optional
+from typing import Any, Callable, Optional
 
 import flet as ft
 from components.dialogs.notifications import NotificationsDialog
@@ -31,7 +31,7 @@ class SettingsPage(ft.Column):
         if theme_manager:
             original_callback = theme_manager.on_theme_changed
 
-            def on_theme_changed(theme_mode):
+            def on_theme_changed(theme_mode: Any) -> None:
                 if original_callback:
                     original_callback(theme_mode)
                 self._rebuild_with_theme()
