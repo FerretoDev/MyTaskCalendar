@@ -1,8 +1,9 @@
 import calendar
 from datetime import datetime
-from typing import Any
+from typing import Any, Optional
 
 import flet as ft
+from components.theme_manager import ThemeManager
 
 
 class CalendarDayButton(ft.Container):
@@ -103,12 +104,13 @@ class CalendarDayButton(ft.Container):
 
 
 class CalendarView(ft.Container):
-    def __init__(self) -> None:
+    def __init__(self, theme_manager: Optional[ThemeManager] = None) -> None:
         super().__init__()
+        self.theme_manager = theme_manager
         self.current_date = datetime.now()
         self.padding = 20
         self.border_radius = ft.border_radius.all(16)
-        self.bgcolor = None  # Usar color del tema
+        self.bgcolor = theme_manager.get_background_color() if theme_manager else ""
         self.shadow = ft.BoxShadow(
             spread_radius=2,
             blur_radius=15,
@@ -284,15 +286,16 @@ class CalendarView(ft.Container):
         self.update()
 
 
-def calendar_page() -> ft.Control:
+def calendar_page(theme_manager: Optional[ThemeManager] = None) -> ft.Control:
     return ft.Container(
+        # bgcolor=theme_manager.get_background_color() if theme_manager else "",
         content=ft.Column(
             controls=[
-                CalendarView(),
+                CalendarView(theme_manager=theme_manager),
             ],
             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-            expand=True,
+            # expand=True,
         ),
         padding=20,
-        expand=True,
+        # expand=True,
     )

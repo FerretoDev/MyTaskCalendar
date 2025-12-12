@@ -27,6 +27,7 @@ class SettingsSection(ft.Column):
             ),
             ft.Card(
                 elevation=2,
+                color=None,  # Usar color del tema en lugar de blanco
                 content=ft.Container(
                     content=ft.Column(
                         controls=[

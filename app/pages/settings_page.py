@@ -27,6 +27,22 @@ class SettingsPage(ft.Column):
         self._initialize_settings()
         self._build_controls()
 
+        # Registrar callback para actualizar cuando cambie el tema
+        if theme_manager:
+            original_callback = theme_manager.on_theme_changed
+
+            def on_theme_changed(theme_mode):
+                if original_callback:
+                    original_callback(theme_mode)
+                self._rebuild_with_theme()
+
+            theme_manager.on_theme_changed = on_theme_changed
+
+    def _rebuild_with_theme(self) -> None:
+        """Reconstruye los controles con el nuevo tema"""
+        self._build_controls()
+        self.update()
+
     def _handle_sync_calendar(self, e: ft.ControlEvent) -> None:
         """Maneja el cambio en la sincronización del calendario"""
         self.sync_calendar_enabled = e.control.value
@@ -366,6 +382,9 @@ class SettingsPage(ft.Column):
 
         # Wrap the settings list in a Container with padding
         content_container = ft.Container(
+            bgcolor=(
+                self.theme_manager.get_background_color() if self.theme_manager else ""
+            ),
             content=ft.Column(
                 controls=[
                     page_title,  # Tal vez lo elimine, ya que tengo un header global

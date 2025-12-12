@@ -18,7 +18,7 @@ class ThemeManager:
     ):
         self.page = page
         self.current_theme = ThemeMode.LIGHT
-        self.accent_color = "blue"  # Color de acento por defecto
+        self.accent_color = ft.Colors.BLUE  # Color de acento por defecto
         self.on_theme_changed = on_theme_changed
         self._load_saved_preferences()
 
@@ -56,6 +56,13 @@ class ThemeManager:
         """Devuelve el color de acento actual"""
         return self.accent_color
 
+    def get_background_color(self) -> str:
+        """Devuelve el color de fondo según el tema actual"""
+        if self.current_theme == ThemeMode.DARK:
+            return ft.Colors.GREY_900
+        else:
+            return ft.Colors.WHITE
+
     def toggle_theme(self) -> None:
         """Alterna entre tema claro y oscuro"""
         if self.current_theme == ThemeMode.LIGHT:
@@ -72,19 +79,25 @@ class ThemeManager:
         """
         self.current_theme = theme_mode
 
-        # Mapear el tema correctamente y configurar ambos temas (light y dark)
+        # Configurar ambos temas una sola vez
         self.page.theme = self._create_light_theme()
         self.page.dark_theme = self._create_dark_theme()
 
+        # Establecer el bgcolor según el tema
+        # Dejar que Flet maneje los colores automáticamente
         if theme_mode == ThemeMode.DARK:
             self.page.theme_mode = ft.ThemeMode.DARK
-            self.page.bgcolor = None  # Usar el color del tema oscuro
+            self.page.bgcolor = (
+                ft.Colors.SURFACE
+            )  # Usar el color SURFACE del tema oscuro
         elif theme_mode == ThemeMode.SYSTEM:
             self.page.theme_mode = ft.ThemeMode.SYSTEM
-            self.page.bgcolor = None  # Usar el color del tema del sistema
+            self.page.bgcolor = ft.Colors.SURFACE  # Usar el color SURFACE del tema
         else:  # LIGHT
             self.page.theme_mode = ft.ThemeMode.LIGHT
-            self.page.bgcolor = None  # Usar el color del tema claro
+            self.page.bgcolor = (
+                ft.Colors.SURFACE
+            )  # Usar el color SURFACE del tema claro
 
         if self.on_theme_changed:
             self.on_theme_changed(theme_mode)

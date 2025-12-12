@@ -1,7 +1,8 @@
 from datetime import datetime, timedelta
-from typing import Any, Callable, List
+from typing import Any, Callable, List, Optional
 
 import flet as ft
+from components.theme_manager import ThemeManager
 
 
 class Task(ft.Column):
@@ -232,10 +233,12 @@ class TaskListItem(ft.Container):
 
 
 class TaskView(ft.Container):
-    def __init__(self) -> None:
+    def __init__(self, theme_manager: Optional[ThemeManager] = None) -> None:
         super().__init__()
+        self.theme_manager = theme_manager
         self.tasks: List[Any] = []
         self.padding = 20
+        self.bgcolor = theme_manager.get_background_color() if theme_manager else ""
         self.content = self.build_task_view()
 
     def build_task_view(self) -> Any:
@@ -292,9 +295,9 @@ class TaskView(ft.Container):
         self.update()
 
 
-def tasks_page() -> ft.Control:
+def tasks_page(theme_manager: Optional[ThemeManager] = None) -> ft.Control:
     return ft.Column(
         controls=[
-            TaskView(),
+            TaskView(theme_manager=theme_manager),
         ],
     )
